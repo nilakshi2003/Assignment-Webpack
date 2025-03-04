@@ -21,6 +21,7 @@ function validateName(name) {
         document.getElementById("nameError").innerHTML = "";
 
     }
+    return valid;
 
    
 }
@@ -44,6 +45,7 @@ function validateEmail(email) {
         document.getElementById("emailError").innerHTML = "";
 
     }
+    return valid;
 
    
 }
@@ -67,6 +69,7 @@ function validatePassword(password) {
         document.getElementById("passError").innerHTML = "";
 
     }
+    return valid;
 
     
 }
@@ -90,6 +93,7 @@ function validatePhone(phone) {
         document.getElementById("phoneError").innerHTML = "";
 
     }
+    return valid;
    
 }
 export function setupContactForm() {
@@ -131,21 +135,18 @@ export function setupContactForm() {
     })
 
    //submit validation
-   mainForm.addEventListener("submit",()=>{
-     validateName(name.value);
-   })
-   mainForm.addEventListener("submit",()=>{
-    validateEmail(email.value);
-   })
-   mainForm.addEventListener("submit",()=>{
-    validatePassword(password.value);
-   })
-   mainForm.addEventListener("submit",()=>{
-    validatePhone(phone.value);
-   })
+   mainForm.addEventListener("submit", (event) => {
+    let isNameValid = validateName(name.value);
+    let isEmailValid = validateEmail(email.value);
+    let isPasswordValid = validatePassword(password.value);
+    let isPhoneValid = validatePhone(phone.value);
 
+    if (!isNameValid || !isEmailValid || !isPasswordValid || !isPhoneValid) {
+        event.preventDefault(); // Prevent form submission if validation fails
+    }
+});
 
 
  
-    // 'true' ensures blur event is captured in the capture phase
+   
 }
